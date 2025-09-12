@@ -1,2 +1,2 @@
-# PLATAFORMA-DE-GESTI-N-Y-EVALUACI-N-DE-CURSOS-ONLINE
+# Plataforma de Gestion y Evaluacion de Cursos Online
 Pendiente
