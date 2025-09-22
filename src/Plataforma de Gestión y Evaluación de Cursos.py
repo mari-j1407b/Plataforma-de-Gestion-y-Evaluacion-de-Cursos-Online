@@ -144,4 +144,21 @@ class sistema_de_gestion_de_cursos:
             return nueva_evaluacion
         return None
 
-
+def inscribir_estudiante_en_curso(self, estudiante_id, curso_id):
+    estudiante = None
+    for e in self.estudiantes:
+        if e.id == estudiante_id:
+            estudiante = e
+    if estudiante == None:
+        print("No existe el estudiante con ID:", estudiante_id)
+        return
+    
+    curso = None
+    for c in self.cursos:
+        if c.codigo == curso_id:
+            curso = c
+    if curso == None:
+        print("No existe el curso con código:", curso_id)
+        return False
+    
+    return estudiante.inscribirCursos(curso)
