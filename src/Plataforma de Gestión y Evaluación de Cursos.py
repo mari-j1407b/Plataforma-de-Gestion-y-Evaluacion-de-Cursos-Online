@@ -5,7 +5,7 @@ class persona:
         self.nombre = nombre
     
     def __str__(self):
-        return f"Persona(ID: {selfid}, Nombre: {self.nombre})"
+        return f"Persona(ID: {self.id}, Nombre: {self.nombre})"
         
 class estudiantess(persona):
     def __init__(self, id_estudiante, nombre):
@@ -21,7 +21,7 @@ class estudiantess(persona):
         return False
     
     def __str__(self):
-        return f"Estudiante(ID: {selfid}, Nombre: {self.nombre}, Cursos: {len(self.cursos_inscritos)})"
+        return f"Estudiante(ID: {self.id}, Nombre: {self.nombre}, Cursos: {len(self.cursos_inscritos)})"
             
 class profesorr(persona):
     def __init__(self, id_profesor, nombre):
