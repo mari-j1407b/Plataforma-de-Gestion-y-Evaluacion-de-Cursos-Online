@@ -92,5 +92,56 @@ class evaluacionn:
     
     def __str__(self):
         return f"Evaluación(ID: {self.id}, Nombre: {self.nombre}, Tipo: {self.tipo}, Curso: {self.curso_codigo})"
+    
+class sistema_de_gestion_de_cursos:
+    def __init__(self):
+        self.estudiantes = []
+        self.profesores = []
+        self.cursos = []
+        self.evaluaciones = []
+        
+    def registrar_estudiante(self, id_est, nombre):
+        for estudiante in self.estudiantes:
+            if estudiante.id == id_est:
+                print(f"Ya existe un estudiante con ID {id_est}")
+                return estudiante
+        nuevo_estudiante = estudiantess(id_est, nombre)
+        self.estudiantes.append(nuevo_estudiante)
+        return nuevo_estudiante
+    
+    def registrar_profesor(self, id_inst, nombre):
+        for instructor in self.profesores:
+            if instructor.id == id_inst:
+                print(f"Ya existe un profesor con ID {id_inst}")
+                return instructor
+        nuevo_instructor = profesorr(id_inst, nombre)
+        self.profesores.append(nuevo_instructor)
+        return nuevo_instructor
+    
+    def registrar_curso(self, curso):
+        for c in self.cursos:
+            if c.codigo == curso.codigo:
+                print(f"Ya existe un curso con código {curso.codigo}")
+                return c
+        self.cursos.append(curso)
+        return curso
+    
+    def crear_evaluacion(self, curso_id, nombre, tipo, fecha_limite, puntaje_maximo, evaluacion_id):
+        curso = next((c for c in self.cursos if c.codigo == curso_id), None)
+        if not curso:
+            print(f"No existe el curso con código {curso_id}")
+            return None
+        
+        for eval_existente in self.evaluaciones:
+            if eval_existente.id == evaluacion_id:
+                print(f"Ya existe una evaluación con ID {evaluacion_id}")
+                return None
+        
+        nueva_evaluacion = evaluacionn(evaluacion_id, nombre, fecha_limite, puntaje_maximo, tipo, curso_id)
+        
+        if curso.agregar_evaluacion(nueva_evaluacion):
+            self.evaluaciones.append(nueva_evaluacion)
+            return nueva_evaluacion
+        return None
 
 
