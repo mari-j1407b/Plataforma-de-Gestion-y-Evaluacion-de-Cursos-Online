@@ -41,6 +41,32 @@ class profesorr(persona):
     
     def __str__(self):
         return f"Profesor(ID: {self.id}, Nombre: {self.nombre}, Cursos: {len(self.cursos_impartidos)})"
+    
+class Curso:
+    def __init__(self, nombre, codigo, profesor):
+        self.nombre = nombre 
+        self.codigo = codigo
+        self.profesor = profesor
+        self.estudiantes_inscritos = []
+        self.evaluaciones = []
+    
+    def agregar_evaluacion(self, evaluacion):
+        for eval_existente in self.evaluaciones:
+            if eval_existente.nombre.lower() == evaluacion.nombre.lower():
+                print(f"Ya existe una evaluación con el nombre '{evaluacion.nombre}' en este curso")
+                return False
+        self.evaluaciones.append(evaluacion)
+        return True
+    
+    def listar_evaluaciones(self):
+        if not self.evaluaciones:
+            return "No hay evaluaciones registradas"
+        return "\n".join([f"{i+1}. {eval.nombre} (ID: {eval.id})" for i, eval in enumerate(self.evaluaciones)])
+    
+    def __str__(self):
+        return f"Curso(Código: {self.codigo}, Nombre: {self.nombre}, Profesor: {self.profesor.nombre})"
+        
+
 class evaluacionn:
     def __init__(self, id_evaluacion, nombre, fecha, nota_maxima, tipo, curso_codigo):
         self.id = id_evaluacion
@@ -66,3 +92,5 @@ class evaluacionn:
     
     def __str__(self):
         return f"Evaluación(ID: {self.id}, Nombre: {self.nombre}, Tipo: {self.tipo}, Curso: {self.curso_codigo})"
+
+
