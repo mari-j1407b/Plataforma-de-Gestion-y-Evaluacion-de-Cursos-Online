@@ -40,8 +40,8 @@ class profesorr(persona):
         return curso
     
     def __str__(self):
-
         return f"Profesor(ID: {self.id}, Nombre: {self.nombre}, Cursos: {len(self.cursos_impartidos)})"
+    
 class Curso:
     def __init__(self, nombre, codigo, profesor):
         self.nombre = nombre 
@@ -66,3 +66,31 @@ class Curso:
     def __str__(self):
         return f"Curso(Código: {self.codigo}, Nombre: {self.nombre}, Profesor: {self.profesor.nombre})"
         
+
+class evaluacionn:
+    def __init__(self, id_evaluacion, nombre, fecha, nota_maxima, tipo, curso_codigo):
+        self.id = id_evaluacion
+        self.nombre = nombre
+        self.fecha = fecha
+        self.nota_maxima = nota_maxima
+        self.tipo = tipo
+        self.curso_codigo = curso_codigo
+        self.calificaciones = {}
+        
+    def registrar_calificacion(self, estudiante, calificacion):
+        if calificacion < 0 or calificacion > self.nota_maxima:
+            print(f"La calificación debe estar entre 0 y {self.nota_maxima}")
+            return False
+        
+        self.calificaciones[estudiante.id] = calificacion
+        
+        if estudiante.id not in estudiante.calificaciones:
+            estudiante.calificaciones[estudiante.id] = {}
+        
+        estudiante.calificaciones[estudiante.id][self.id] = calificacion
+        return True
+    
+    def __str__(self):
+        return f"Evaluación(ID: {self.id}, Nombre: {self.nombre}, Tipo: {self.tipo}, Curso: {self.curso_codigo})"
+
+
