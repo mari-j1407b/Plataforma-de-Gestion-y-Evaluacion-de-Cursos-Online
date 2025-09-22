@@ -143,6 +143,58 @@ class sistema_de_gestion_de_cursos:
             self.evaluaciones.append(nueva_evaluacion)
             return nueva_evaluacion
         return None
+    
+    def registrar_calificacion(self, evaluacion_id, estudiante_id, calificacion):
+        evaluacion = next((e for e in self.evaluaciones if e.id == evaluacion_id), None)
+        estudiante = next((e for e in self.estudiantes if e.id == estudiante_id), None)
+        
+        if not evaluacion:
+            print(f"No existe la evaluación con ID {evaluacion_id}")
+            return False
+        if not estudiante:
+            print(f"No existe el estudiante con ID {estudiante_id}")
+            return False
+        
+        curso_evaluacion = next((c for c in self.cursos if c.codigo == evaluacion.curso_codigo), None)
+        if curso_evaluacion and estudiante not in curso_evaluacion.estudiantes_inscritos:
+            print(f"El estudiante no está inscrito en el curso {evaluacion.curso_codigo}")
+            return False
+        
+        return evaluacion.registrar_calificacion(estudiante, calificacion)
+    
+    def obtener_promedio_estudiante(self, estudiante_id, curso_id=None):
+        estudiante = next((e for e in self.estudiantes if e.id == estudiante_id), None)
+        if not estudiante:
+            print(f"No existe el estudiante con ID {estudiante_id}")
+            return None
+        
+        if curso_id:
+            curso = next((c for c in self.cursos if c.codigo == curso_id), None)
+            if not curso:
+                print(f"No existe el curso con código {curso_id}")
+                return None
+            
+            if estudiante not in curso.estudiantes_inscritos:
+                print(f"El estudiante no está inscrito en el curso {curso_id}")
+                return None
+            
+            if estudiante_id in estudiante.calificaciones:
+                calificaciones_curso = []
+                for eval_id, calif in estudiante.calificaciones[estudiante_id].items():
+                    eval_obj = next((e for e in self.evaluaciones if e.id == eval_id), None)
+                    if eval_obj and eval_obj.curso_codigo == curso_id:
+                        calificaciones_curso.append(calif)
+                if calificaciones_curso:
+                    return sum(calificaciones_curso) / len(calificaciones_curso)
+            return None
+        else:
+            todas_calificaciones = []
+            if estudiante_id in estudiante.calificaciones:
+                for calif in estudiante.calificaciones[estudiante_id].values():
+                    todas_calificaciones.append(calif)
+            if todas_calificaciones:
+                return sum(todas_calificaciones) / len(todas_calificaciones)
+            return None
 
     def inscribir_estudiante_en_curso(self, estudiante_id, curso_id):
         estudiante = next((e for e in self.estudiantes if e.id == estudiante_id), None)
