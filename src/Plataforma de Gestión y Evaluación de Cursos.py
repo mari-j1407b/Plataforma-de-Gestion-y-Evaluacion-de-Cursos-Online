@@ -105,3 +105,49 @@ class evaluacionn:
             return False
         
         return estudiante.inscribir_curso(curso)
+    
+
+    def listar_cursos(self):
+        if not self.cursos:
+            return "No hay cursos registrados"
+        return "\n".join([f"{i+1}. {curso.nombre} (Código: {curso.codigo})" for i, curso in enumerate(self.cursos)])
+    
+    def listar_estudiantes(self):
+        if not self.estudiantes:
+            return "No hay estudiantes registrados"
+        return "\n".join([f"{i+1}. {est.nombre} (ID: {est.id})" for i, est in enumerate(self.estudiantes)])
+    
+    def listar_profesores(self):
+        if not self.profesores:
+            return "No hay profesores registrados"
+        return "\n".join([f"{i+1}. {prof.nombre} (ID: {prof.id})" for i, prof in enumerate(self.profesores)])
+    
+    def listar_evaluaciones_curso(self, curso_id):
+        curso = next((c for c in self.cursos if c.codigo == curso_id), None)
+        if not curso:
+            return f"No existe el curso con código {curso_id}"
+        return curso.listar_evaluaciones()
+    
+    def listar_estudiantes_curso(self, curso_id):
+        curso = next((c for c in self.cursos if c.codigo == curso_id), None)
+        if not curso:
+            return f"No existe el curso con código {curso_id}"
+        if not curso.estudiantes_inscritos:
+            return "No hay estudiantes inscritos en este curso"
+        return "\n".join([f"{i+1}. {est.nombre} (ID: {est.id})" for i, est in enumerate(curso.estudiantes_inscritos)])
+    
+    def estudiantes_promedio_bajo(self, curso_id=None, limite=60):
+        resultados = [] 
+        for estudiante in self.estudiantes:
+            promedio = self.obtener_promedio_estudiante(estudiante.id, curso_id)
+            if promedio is not None and promedio < limite:
+                resultados.append((estudiante, promedio))
+        return resultados
+    
+    def estudiantes_promedio_alto(self, curso_id=None, limite=90):
+        resultados = [] 
+        for estudiante in self.estudiantes:
+            promedio = self.obtener_promedio_estudiante(estudiante.id, curso_id)
+            if promedio is not None and promedio > limite:
+                resultados.append((estudiante, promedio))
+        return resultados
