@@ -40,6 +40,7 @@ class profesorr(persona):
         return curso
     
     def __str__(self):
+
         return f"Profesor(ID: {self.id}, Nombre: {self.nombre}, Cursos: {len(self.cursos_impartidos)})"
 class Curso:
     def __init__(self, nombre, codigo, profesor):
