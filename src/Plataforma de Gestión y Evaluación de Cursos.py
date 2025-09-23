@@ -6,10 +6,7 @@ class persona:
     
     def __str__(self):
         return f"Persona(ID: {self.id}, Nombre: {self.nombre})"
-    
-    def __del__(self):
-        print(f"Persona {self.nombre} (ID: {self.id}) ha sido eliminada")
-            
+        
 class estudiantess(persona):
     def __init__(self, id_estudiante, nombre, *args, **kwargs):
         super().__init__(id_estudiante, nombre, *args, **kwargs)
@@ -25,10 +22,6 @@ class estudiantess(persona):
     
     def __str__(self):
         return f"Estudiante(ID: {self.id}, Nombre: {self.nombre}, Cursos: {len(self.cursos_inscritos)})"
-    
-    def __del__(self):
-        print(f"Estudiante {self.nombre} (ID: {self.id}) ha sido eliminado")
-     
             
 class profesorr(persona):
     def __init__(self, id_profesor, nombre, *args, **kwargs):
@@ -48,9 +41,6 @@ class profesorr(persona):
     
     def __str__(self):
         return f"Profesor(ID: {self.id}, Nombre: {self.nombre}, Cursos: {len(self.cursos_impartidos)})"
-    
-    def __del__(self):
-        print(f"Profesor {self.nombre} (ID: {self.id}) ha sido eliminado")
     
 class Curso:
     def __init__(self, nombre, codigo, profesor, *args, **kwargs):
@@ -75,9 +65,6 @@ class Curso:
     
     def __str__(self):
         return f"Curso(Código: {self.codigo}, Nombre: {self.nombre}, Profesor: {self.profesor.nombre})"
-    
-    def __del__(self):
-        print(f"Curso {self.nombre} (Código: {self.codigo}) ha sido eliminado")
         
 class evaluacionn:
     def __init__(self, id_evaluacion, nombre, fecha, nota_maxima, tipo, curso_codigo, *args, **kwargs):
@@ -104,9 +91,6 @@ class evaluacionn:
     
     def __str__(self):
         return f"Evaluación(ID: {self.id}, Nombre: {self.nombre}, Tipo: {self.tipo}, Curso: {self.curso_codigo})"
-    
-    def __del__(self):
-        print(f"Evaluación {self.nombre} (ID: {self.id}) ha sido eliminada")
     
 class sistema_de_gestion_de_cursos:
     def __init__(self, *args, **kwargs):
@@ -268,9 +252,6 @@ class sistema_de_gestion_de_cursos:
             if promedio is not None and promedio > limite:
                 resultados.append((estudiante, promedio))
         return resultados
-    
-    def __del__(self):
-        print("Sistema de gestión de cursos ha sido eliminado")
 
 def menu():
     sistema = sistema_de_gestion_de_cursos()
