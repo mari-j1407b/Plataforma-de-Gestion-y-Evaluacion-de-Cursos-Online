@@ -1,6 +1,6 @@
 import os
 class persona:
-    def __init__(self, id_persona, nombre):
+    def __init__(self, id_persona, nombre, *args, **kwargs):
         self.id = id_persona
         self.nombre = nombre
     
@@ -8,12 +8,12 @@ class persona:
         return f"Persona(ID: {self.id}, Nombre: {self.nombre})"
         
 class estudiantess(persona):
-    def __init__(self, id_estudiante, nombre):
-        super().__init__(id_estudiante, nombre)
+    def __init__(self, id_estudiante, nombre, *args, **kwargs):
+        super().__init__(id_estudiante, nombre, *args, **kwargs)
         self.cursos_inscritos = []
         self.calificaciones = {}
 
-    def inscribir_curso(self, curso):
+    def inscribir_curso(self, curso, *args, **kwargs):
         if curso not in self.cursos_inscritos:
             self.cursos_inscritos.append(curso)
             curso.estudiantes_inscritos.append(self)
@@ -24,17 +24,17 @@ class estudiantess(persona):
         return f"Estudiante(ID: {self.id}, Nombre: {self.nombre}, Cursos: {len(self.cursos_inscritos)})"
             
 class profesorr(persona):
-    def __init__(self, id_profesor, nombre):
-        super().__init__(id_profesor, nombre)
+    def __init__(self, id_profesor, nombre, *args, **kwargs):
+        super().__init__(id_profesor, nombre, *args, **kwargs)
         self.cursos_impartidos = []
     
-    def crear_curso(self, sistema, nombre_del_curso, codigo_del_curso):
+    def crear_curso(self, sistema, nombre_del_curso, codigo_del_curso, *args, **kwargs):
         for curso in sistema.cursos:
             if curso.codigo == codigo_del_curso:
                 print(f"Ya existe un curso con el código {codigo_del_curso}")
                 return None
         
-        curso = Curso(nombre_del_curso, codigo_del_curso, self)
+        curso = Curso(nombre_del_curso, codigo_del_curso, self, *args, **kwargs)
         sistema.registrar_curso(curso)
         self.cursos_impartidos.append(curso)
         return curso
@@ -43,14 +43,14 @@ class profesorr(persona):
         return f"Profesor(ID: {self.id}, Nombre: {self.nombre}, Cursos: {len(self.cursos_impartidos)})"
     
 class Curso:
-    def __init__(self, nombre, codigo, profesor):
+    def __init__(self, nombre, codigo, profesor, *args, **kwargs):
         self.nombre = nombre 
         self.codigo = codigo
         self.profesor = profesor
         self.estudiantes_inscritos = []
         self.evaluaciones = []
     
-    def agregar_evaluacion(self, evaluacion):
+    def agregar_evaluacion(self, evaluacion, *args, **kwargs):
         for eval_existente in self.evaluaciones:
             if eval_existente.nombre.lower() == evaluacion.nombre.lower():
                 print(f"Ya existe una evaluación con el nombre '{evaluacion.nombre}' en este curso")
@@ -58,7 +58,7 @@ class Curso:
         self.evaluaciones.append(evaluacion)
         return True
     
-    def listar_evaluaciones(self):
+    def listar_evaluaciones(self, *args, **kwargs):
         if not self.evaluaciones:
             return "No hay evaluaciones registradas"
         return "\n".join([f"{i+1}. {eval.nombre} (ID: {eval.id})" for i, eval in enumerate(self.evaluaciones)])
@@ -67,7 +67,7 @@ class Curso:
         return f"Curso(Código: {self.codigo}, Nombre: {self.nombre}, Profesor: {self.profesor.nombre})"
         
 class evaluacionn:
-    def __init__(self, id_evaluacion, nombre, fecha, nota_maxima, tipo, curso_codigo):
+    def __init__(self, id_evaluacion, nombre, fecha, nota_maxima, tipo, curso_codigo, *args, **kwargs):
         self.id = id_evaluacion
         self.nombre = nombre
         self.fecha = fecha
@@ -76,7 +76,7 @@ class evaluacionn:
         self.curso_codigo = curso_codigo
         self.calificaciones = {}
         
-    def registrar_calificacion(self, estudiante, calificacion):
+    def registrar_calificacion(self, estudiante, calificacion, *args, **kwargs):
         if calificacion < 0 or calificacion > self.nota_maxima:
             print(f"La calificación debe estar entre 0 y {self.nota_maxima}")
             return False
@@ -93,31 +93,31 @@ class evaluacionn:
         return f"Evaluación(ID: {self.id}, Nombre: {self.nombre}, Tipo: {self.tipo}, Curso: {self.curso_codigo})"
     
 class sistema_de_gestion_de_cursos:
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         self.estudiantes = []
         self.profesores = []
         self.cursos = []
         self.evaluaciones = []
         
-    def registrar_estudiante(self, id_est, nombre):
+    def registrar_estudiante(self, id_est, nombre, *args, **kwargs):
         for estudiante in self.estudiantes:
             if estudiante.id == id_est:
                 print(f"Ya existe un estudiante con ID {id_est}")
                 return estudiante
-        nuevo_estudiante = estudiantess(id_est, nombre)
+        nuevo_estudiante = estudiantess(id_est, nombre, *args, **kwargs)
         self.estudiantes.append(nuevo_estudiante)
         return nuevo_estudiante
     
-    def registrar_profesor(self, id_inst, nombre):
+    def registrar_profesor(self, id_inst, nombre, *args, **kwargs):
         for instructor in self.profesores:
             if instructor.id == id_inst:
                 print(f"Ya existe un profesor con ID {id_inst}")
                 return instructor
-        nuevo_instructor = profesorr(id_inst, nombre)
+        nuevo_instructor = profesorr(id_inst, nombre, *args, **kwargs)
         self.profesores.append(nuevo_instructor)
         return nuevo_instructor
     
-    def registrar_curso(self, curso):
+    def registrar_curso(self, curso, *args, **kwargs):
         for c in self.cursos:
             if c.codigo == curso.codigo:
                 print(f"Ya existe un curso con código {curso.codigo}")
@@ -125,7 +125,7 @@ class sistema_de_gestion_de_cursos:
         self.cursos.append(curso)
         return curso
     
-    def crear_evaluacion(self, curso_id, nombre, tipo, fecha_limite, puntaje_maximo, evaluacion_id):
+    def crear_evaluacion(self, curso_id, nombre, tipo, fecha_limite, puntaje_maximo, evaluacion_id, *args, **kwargs):
         curso = next((c for c in self.cursos if c.codigo == curso_id), None)
         if not curso:
             print(f"No existe el curso con código {curso_id}")
@@ -136,14 +136,14 @@ class sistema_de_gestion_de_cursos:
                 print(f"Ya existe una evaluación con ID {evaluacion_id}")
                 return None
         
-        nueva_evaluacion = evaluacionn(evaluacion_id, nombre, fecha_limite, puntaje_maximo, tipo, curso_id)
+        nueva_evaluacion = evaluacionn(evaluacion_id, nombre, fecha_limite, puntaje_maximo, tipo, curso_id, *args, **kwargs)
         
-        if curso.agregar_evaluacion(nueva_evaluacion):
+        if curso.agregar_evaluacion(nueva_evaluacion, *args, **kwargs):
             self.evaluaciones.append(nueva_evaluacion)
             return nueva_evaluacion
         return None
 
-    def inscribir_estudiante_en_curso(self, estudiante_id, curso_id):
+    def inscribir_estudiante_en_curso(self, estudiante_id, curso_id, *args, **kwargs):
         estudiante = next((e for e in self.estudiantes if e.id == estudiante_id), None)
         curso = next((c for c in self.cursos if c.codigo == curso_id), None)
         
@@ -154,9 +154,9 @@ class sistema_de_gestion_de_cursos:
             print(f"No existe el curso con código {curso_id}")
             return False
         
-        return estudiante.inscribir_curso(curso)
+        return estudiante.inscribir_curso(curso, *args, **kwargs)
     
-    def registrar_calificacion(self, evaluacion_id, estudiante_id, calificacion):
+    def registrar_calificacion(self, evaluacion_id, estudiante_id, calificacion, *args, **kwargs):
         evaluacion = next((e for e in self.evaluaciones if e.id == evaluacion_id), None)
         estudiante = next((e for e in self.estudiantes if e.id == estudiante_id), None)
         
@@ -174,7 +174,7 @@ class sistema_de_gestion_de_cursos:
         
         return evaluacion.registrar_calificacion(estudiante, calificacion)
     
-    def obtener_promedio_estudiante(self, estudiante_id, curso_id=None):
+    def obtener_promedio_estudiante(self, estudiante_id, curso_id=None, *args, **kwargs):
         estudiante = next((e for e in self.estudiantes if e.id == estudiante_id), None)
         if not estudiante:
             print(f"No existe el estudiante con ID {estudiante_id}")
@@ -208,28 +208,28 @@ class sistema_de_gestion_de_cursos:
                 return sum(todas_calificaciones) / len(todas_calificaciones)
             return None
     
-    def listar_cursos(self):
+    def listar_cursos(self, *args, **kwargs):
         if not self.cursos:
             return "No hay cursos registrados"
         return "\n".join([f"{i+1}. {curso.nombre} (Código: {curso.codigo})" for i, curso in enumerate(self.cursos)])
     
-    def listar_estudiantes(self):
+    def listar_estudiantes(self, *args, **kwargs):
         if not self.estudiantes:
             return "No hay estudiantes registrados"
         return "\n".join([f"{i+1}. {est.nombre} (ID: {est.id})" for i, est in enumerate(self.estudiantes)])
     
-    def listar_profesores(self):
+    def listar_profesores(self, *args, **kwargs):
         if not self.profesores:
             return "No hay profesores registrados"
         return "\n".join([f"{i+1}. {prof.nombre} (ID: {prof.id})" for i, prof in enumerate(self.profesores)])
     
-    def listar_evaluaciones_curso(self, curso_id):
+    def listar_evaluaciones_curso(self, curso_id, *args, **kwargs):
         curso = next((c for c in self.cursos if c.codigo == curso_id), None)
         if not curso:
             return f"No existe el curso con código {curso_id}"
-        return curso.listar_evaluaciones()
+        return curso.listar_evaluaciones(*args, **kwargs)
     
-    def listar_estudiantes_curso(self, curso_id):
+    def listar_estudiantes_curso(self, curso_id, *args, **kwargs):
         curso = next((c for c in self.cursos if c.codigo == curso_id), None)
         if not curso:
             return f"No existe el curso con código {curso_id}"
@@ -237,18 +237,18 @@ class sistema_de_gestion_de_cursos:
             return "No hay estudiantes inscritos en este curso"
         return "\n".join([f"{i+1}. {est.nombre} (ID: {est.id})" for i, est in enumerate(curso.estudiantes_inscritos)])
     
-    def estudiantes_promedio_bajo(self, curso_id=None, limite=60):
+    def estudiantes_promedio_bajo(self, curso_id=None, limite=60, *args, **kwargs):
         resultados = [] 
         for estudiante in self.estudiantes:
-            promedio = self.obtener_promedio_estudiante(estudiante.id, curso_id)
+            promedio = self.obtener_promedio_estudiante(estudiante.id, curso_id, *args, **kwargs)
             if promedio is not None and promedio < limite:
                 resultados.append((estudiante, promedio))
         return resultados
     
-    def estudiantes_promedio_alto(self, curso_id=None, limite=90):
+    def estudiantes_promedio_alto(self, curso_id=None, limite=90, *args, **kwargs):
         resultados = [] 
         for estudiante in self.estudiantes:
-            promedio = self.obtener_promedio_estudiante(estudiante.id, curso_id)
+            promedio = self.obtener_promedio_estudiante(estudiante.id, curso_id, *args, **kwargs)
             if promedio is not None and promedio > limite:
                 resultados.append((estudiante, promedio))
         return resultados
