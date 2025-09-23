@@ -1,2 +1,0 @@
-En este archivo se listarán las librerias utilizadas para el desarrollo del programa 
-(si se utilizan)
