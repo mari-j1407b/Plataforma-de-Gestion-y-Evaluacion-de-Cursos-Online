@@ -21,34 +21,52 @@ El usuario debe ingresar el número correspondiente a la acción que desee reali
 
 Menú de opciones
 
-Opción 1 – Gestión de Cursos
-Permite crear y administrar cursos solicitando:
-- Nombre del curso.
-- Código único.
-- Instructor asignado.
+Opción 1 – Registrar Estudiante
+Agrega un nuevo estudiante al sistema.
 
-Opción 2 – Registro de Usuarios
-Permite registrar usuarios indicando:
-- Nombre completo.
-- Tipo (estudiante o instructor).
-- Información de contacto.
+Opción 2 – Registrar Profesor
+Agrega un nuevo profesor al sistema.
 
-Opción 3 – Inscripciones
-Permite inscribir estudiantes en cursos disponibles.
+Opción 3 – Crear Curso
+Permite a un profesor crear un curso nuevo con nombre y código único.
 
-Opción 4 – Gestión de Evaluaciones
-Permite crear evaluaciones para cada curso.
+Opción 4 – Inscribir Estudiante en Curso
+Asocia un estudiante a un curso ya existente.
 
-Opción 5 – Registro de Calificaciones
-Permite registrar calificaciones por estudiante y evaluación.
+Opción 5 – Crear Evaluación
+Crea una nueva evaluación dentro de un curso.
 
-Opción 6 – Consultas y Reportes
-Permite consultar información y generar reportes.
+Opción 6 – Registrar Calificación
+Registra la calificación obtenida por un estudiante en una evaluación.
 
-Opción 7 – Salir del programa
-Finaliza la ejecución del sistema.
+Opción 7 – Obtener Promedio Estudiante
+Calcula y muestra el promedio de un estudiante en un curso.
 
-Continuar en el programa
+Opción 8 – Listar Estudiantes con Promedio Bajo
+Muestra estudiantes cuyo promedio es inferior a un límite dado.
+
+Opción 9 – Listar Estudiantes con Promedio Alto
+Muestra estudiantes cuyo promedio es superior a un límite dado.
+
+Opción 10 – Listar Cursos
+Muestra todos los cursos registrados en el sistema.
+
+Opción 11 – Listar Estudiantes
+Muestra todos los estudiantes registrados en el sistema.
+
+Opción 12 – Listar Evaluaciones de un Curso
+Muestra todas las evaluaciones de un curso específico.
+
+Opción 13 – Listar Profesores
+Muestra todos los profesores registrados en el sistema.
+
+Opción 14 – Listar Estudiantes de un Curso
+Muestra los estudiantes inscritos en un curso específico.
+
+Opción 0 – Salir
+Finaliza la ejecución del programa.
+
+Continuar en el programa:
 Tras completar una acción, el sistema mostrará la opción de volver al menú principal.
 
 --------------------------------------------------------------------------------------------
